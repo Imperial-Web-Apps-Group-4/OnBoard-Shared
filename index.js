@@ -1,5 +1,7 @@
-const Game = require('Game');
-const Message = require('Message');
+'use strict';
+
+const Game = require('./src/Game');
+const Message = require('./src/Message');
 
 module.exports = {
   Game: Game.Game,
