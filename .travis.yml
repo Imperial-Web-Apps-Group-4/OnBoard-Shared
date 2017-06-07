@@ -1,12 +1,11 @@
 language: node_js
+node_js:
+  - 6
 script:
 - npm test
 deploy:
-  provider: npm
-  email: npm@kianmayne.co.uk
-  api_key: "$NPM_AUTH_TOKEN"
+  skip_cleanup: true
+  provider: script
+  script: npm run ci-publish
   on:
     tags: true
-env:
-  global:
-    secure: o13kaZX/rrcoFJzWQAoXpxLg76R9WQV5VCkVODlmTmS+Uabdqk/6KqSXLzZ5RiyWt7UlvEi7Z7sKtCq/NJrGzvnhN9VS/R26JtazvRSL3uarjR0Vr07uAoEcfBl5cuwB4yBFUFzeYKAGJDGnexb5fOlKOl/4FT8PYArC+clFmJEdMtq4OxlIkcNSakKfgUBa5b+eE96QlH8EaURH7Y4LMO9LrV62hWQ0Srn36DQHeIC2xf8zR7Z96t/7AcifNOBg9M2/f4Xh0GVnUyYZIG1FGqCb8E+7U9GPW4urcLr7B3IqHcf+3wTisSs1nQNmtDfOOWc+aqO2scvpYZD54OkuwvVOJRKB2pyQAKNUqjgN1Gni3gT7i/SKh/EpHl3CAuhyvECuLI4OVLWVVXI9I7Mw7NeFdyuKH2IL3b7yiWUH/GUL57tqvt9f2opH7Hmjw0VUwqnH0ibqQFHWohgQJYJivXBYOivOEjnHLKE1Z+IZgJCmdZjbqtI5n3YoYDjKf2SZewwRgU56383VkxR0YCv13nd8qHqTalG3LQvsSxh0+4SoS7OCRl3igyEk5Nd//Ouk5f0b7znFO2eehg62MIVbur7JT+vlz1mCC4n+ueGZ0YUvO1Ln1jhtw+ItIVBEB/yrjni2lu71l/LBmJK81Hq3pQfOYPMpSBRkQC+MijzPoQg=
