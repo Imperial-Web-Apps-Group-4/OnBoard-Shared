@@ -75,5 +75,5 @@ function deserialise(data) {
 
 module.exports = {
   Game: Game,
-  deserialiseGame: deserialiseGame
+  deserialiseGame: deserialise
 };
