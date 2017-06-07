@@ -13,6 +13,12 @@ class Game {
     this.components[id] = new Component(componentID, posX, posY);
   }
 
+  setComponentDimensions(componentID, width, height) {
+    let component = this.components[movement.componentID];
+    component.width = width;
+    component.height = height;
+  }
+
   applyMovement(movement) {
     let component = this.components[movement.componentID];
     component.posX = movement.newX;
@@ -41,8 +47,8 @@ class ComponentClass {
   constructor(name, imageID, width, height) {
     this.name = name;
     this.imageID = imageID;
-    this.width = width;
-    this.height = height;
+    this.defaultWidth = width;
+    this.defaultHeight = height;
   }
 }
 
