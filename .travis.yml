@@ -3,6 +3,7 @@ script:
   - npm test
 deploy:
   provider: npm
+  email: npm@kianmayne.co.uk
   api_key: $NPM_AUTH_TOKEN
   on:
     tags: true
