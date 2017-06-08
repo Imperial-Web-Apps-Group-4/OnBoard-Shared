@@ -41,6 +41,7 @@ class Movement extends Action {
 module.exports = {
   Message: Message,
   GameMessage: GameMessage,
+  InitMessage: InitMessage,
   Action: Action,
   Movement: Movement
 }

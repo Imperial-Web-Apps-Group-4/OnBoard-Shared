@@ -8,6 +8,7 @@ module.exports = {
   deserialiseGame: Game.deserialiseGame,
   Message: Message.Message,
   GameMessage: Message.GameMessage,
+  InitMessage: Message.InitMessage,
   Action: Message.Action,
   Movement: Message.Movement
 }
