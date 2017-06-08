@@ -16,10 +16,10 @@ class GameMessage extends Message {
 }
 
 class InitMessage extends Message {
-  constructor(version, initalState) {
+  constructor(version, initialState) {
     super('init');
     this.version = version;
-    this.initalState = initalState;
+    this.initialState = initialState;
   }
 }
 
