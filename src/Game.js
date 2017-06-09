@@ -1,22 +1,33 @@
+/* exported Game deserialiseGame */
+
 class Game {
   constructor() {
     this.manifest = new Manifest();
     this.components = {};
   }
 
-  addComponentClass(name, imageID, width, height) {
-    this.manifest.addComponentClass(name, imageID, width, height);
+  generateComponentClass(name, imageID, width, height) {
+    return this.manifest.generateComponentClass(name, imageID, width, height);
   }
 
   generateComponent(componentID, posX, posY) {
     const id = generateUniqueID(this.components);
-    return {id: id, component: new Component(componentID, posX, posY) };
+    return {
+      id: id,
+      component: new Component(componentID, posX, posY)
+    };
   }
 
-  setComponentDimensions(componentID, width, height) {
-    let component = this.components[movement.componentID];
+  resizeComponent(componentID, width, height) {
+    let component = this.components[componentID];
     component.width = width;
     component.height = height;
+  }
+
+  resizeComponentClass(classID, width, height) {
+    let compClass = this.manifest.componentClasses[classID];
+    component.defaultWidth = width;
+    component.defaultHeight = height;
   }
 
   applyMovement(movement) {
@@ -36,10 +47,12 @@ class Manifest {
     this.componentClasses = {};
   }
 
-  addComponentClass(name, imageID, width, height) {
+  generateComponentClass(name, imageID, width, height) {
     const id = generateUniqueID(this.componentClasses);
-    this.componentClasses[id] = new ComponentClass(name, imageID, width, height);
-    return id;
+    return {
+      id: id,
+      compClass: new ComponentClass(name, imageID, width, height)
+    };
   }
 }
 
@@ -68,8 +81,8 @@ function generateUniqueID(object) {
 }
 
 function deserialise(data) {
-  let game = new Game();
-  Object.assign(game, data);
+  let game = Object.assign(new Game(), data);
+  game.manifest = Object.assign(new Manifest(), data.manifest);
   return game;
 }
 
