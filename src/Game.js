@@ -26,8 +26,8 @@ class Game {
 
   resizeComponentClass(classID, width, height) {
     let compClass = this.manifest.componentClasses[classID];
-    component.defaultWidth = width;
-    component.defaultHeight = height;
+    compClass.defaultWidth = width;
+    compClass.defaultHeight = height;
   }
 
   applyMovement(movement) {
