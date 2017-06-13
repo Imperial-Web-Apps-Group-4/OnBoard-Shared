@@ -1,9 +1,14 @@
+const Action = require('./Action');
 /* exported Game deserialiseGame */
 
 class Game {
   constructor() {
     this.manifest = new Manifest();
     this.components = {};
+  }
+
+  applyAction(action) {
+    Action.apply(this, action);
   }
 
   generateComponentClass(name, imageID, width, height) {
@@ -28,12 +33,6 @@ class Game {
     let compClass = this.manifest.componentClasses[classID];
     compClass.defaultWidth = width;
     compClass.defaultHeight = height;
-  }
-
-  applyMovement(movement) {
-    let component = this.components[movement.componentID];
-    component.posX = movement.newX;
-    component.posY = movement.newY;
   }
 
   getCoords(componentID) {

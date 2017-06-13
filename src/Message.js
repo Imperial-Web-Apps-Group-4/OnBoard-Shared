@@ -25,25 +25,7 @@ class InitMessage extends Message {
   }
 }
 
-class Action {
-  constructor(type) {
-    this.type = type;
-  }
-}
-
-class Movement extends Action {
-  constructor(componentID, newX, newY) {
-    super('movement');
-    this.componentID = componentID;
-    this.newX = newX;
-    this.newY = newY;
-  }
-}
-
 module.exports = {
-  Message: Message,
   GameMessage: GameMessage,
-  InitMessage: InitMessage,
-  Action: Action,
-  Movement: Movement
+  InitMessage: InitMessage
 }
