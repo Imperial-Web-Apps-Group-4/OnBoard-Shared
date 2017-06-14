@@ -10,22 +10,17 @@ class Message {
   }
 }
 
-class GameMessage extends Message {
+module.exports.GameMessage = class GameMessage extends Message {
   constructor(action) {
     super('game');
     this.action = action;
   }
 }
 
-class InitMessage extends Message {
+module.exports.InitMessage = class InitMessage extends Message {
   constructor(version, initialState) {
     super('init');
     this.version = version;
     this.initialState = initialState;
   }
-}
-
-module.exports = {
-  GameMessage: GameMessage,
-  InitMessage: InitMessage
 }

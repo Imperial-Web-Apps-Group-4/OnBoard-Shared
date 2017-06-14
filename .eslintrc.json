@@ -1,0 +1,33 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "plugins": [],
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": [
+            "error",
+            2,
+            {"SwitchCase": 1 }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": [
+          "off"
+        ],
+        "no-var": [
+          "error"
+        ]
+    }
+}

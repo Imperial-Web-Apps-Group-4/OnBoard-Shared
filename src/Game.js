@@ -1,7 +1,11 @@
-const Action = require('./Action');
-/* exported Game deserialiseGame */
+'use strict';
 
-class Game {
+const Manifest = require('./Manifest');
+const Component = require('./Component');
+const Action = require('./Action');
+const Utils = require('./Utils');
+
+module.exports = class Game {
   constructor() {
     this.manifest = new Manifest();
     this.components = {};
@@ -16,7 +20,7 @@ class Game {
   }
 
   generateComponent(componentID, posX, posY) {
-    const id = generateUniqueID(this.components);
+    const id = Utils.generateUniqueID(this.components);
     return {
       id: id,
       component: new Component(componentID, posX, posY)
@@ -39,53 +43,4 @@ class Game {
     let comp = this.components[componentID];
     return { x: comp.posX, y: comp.posY };
   }
-}
-
-class Manifest {
-  constructor() {
-    this.componentClasses = {};
-  }
-
-  generateComponentClass(name, imageID, width, height) {
-    const id = generateUniqueID(this.componentClasses);
-    return {
-      id: id,
-      compClass: new ComponentClass(name, imageID, width, height)
-    };
-  }
-}
-
-class ComponentClass {
-  constructor(name, imageID, width, height) {
-    this.name = name;
-    this.imageID = imageID;
-    this.defaultWidth = width;
-    this.defaultHeight = height;
-  }
-}
-
-class Component {
-  constructor(classID, posX, posY) {
-    this.classID = classID;
-    this.posX = posX;
-    this.posY = posY;
-  }
-}
-
-function generateUniqueID(object) {
-  const randomID = () => Math.random().toString(36).slice(2);
-  let id = randomID();
-  while (object[id] !== undefined) id = randomID();
-  return id;
-}
-
-function deserialise(data) {
-  let game = Object.assign(new Game(), data);
-  game.manifest = Object.assign(new Manifest(), data.manifest);
-  return game;
-}
-
-module.exports = {
-  Game: Game,
-  deserialiseGame: deserialise
 };
