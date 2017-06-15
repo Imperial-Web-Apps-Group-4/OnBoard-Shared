@@ -39,6 +39,11 @@ module.exports = class Game {
     compClass.defaultHeight = height;
   }
 
+  lockComponent(componentID, lock = true) {
+    let compClass = this.manifest.componentClasses[classID];
+    compClass.attributes.locked = lock;
+  }
+
   getCoords(componentID) {
     let comp = this.components[componentID];
     return { x: comp.posX, y: comp.posY };
