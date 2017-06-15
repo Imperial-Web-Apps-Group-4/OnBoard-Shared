@@ -15,7 +15,7 @@ module.exports.GameMessage = class GameMessage extends Message {
     super('game');
     this.action = action;
   }
-}
+};
 
 module.exports.InitMessage = class InitMessage extends Message {
   constructor(version, initialState) {
@@ -23,4 +23,13 @@ module.exports.InitMessage = class InitMessage extends Message {
     this.version = version;
     this.initialState = initialState;
   }
-}
+};
+
+module.exports.ChatMessage = class ChatMessage extends Message {
+  constructor(name, content, official) {
+    super('chat');
+    this.name = name;
+    this.content = content;
+    this.official = official || false;
+  }
+};
