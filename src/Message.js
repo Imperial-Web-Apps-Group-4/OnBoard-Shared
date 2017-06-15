@@ -26,9 +26,10 @@ module.exports.InitMessage = class InitMessage extends Message {
 };
 
 module.exports.ChatMessage = class ChatMessage extends Message {
-  constructor(name, content) {
+  constructor(name, content, official) {
     super('chat');
     this.name = name;
     this.content = content;
+    this.official = official || false;
   }
 };
