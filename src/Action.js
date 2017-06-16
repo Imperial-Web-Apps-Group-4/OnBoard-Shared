@@ -6,28 +6,55 @@ class Action {
   }
 }
 
-module.exports.apply = function (game, action) {
-  switch (action.type) {
-    case 'movement':
-      applyMovement(game, action);
-      break;
-    default:
-      console.error('[Unrecognised action]');
+class ComponentAction extends Action {
+  constructor(type, componentID) {
+    super(type);
+    this.componentID = componentID;
+  }
+}
+
+module.exports.ClassCreate = class ClassCreate extends Action {
+  constructor(classID, newClass) {
+    super('classCreate');
+    this.classID = classID;
+    this.newClass = newClass;
   }
 };
 
-module.exports.Movement = class Movement extends Action {
+module.exports.ComponentSpawn = class ComponentSpawn extends ComponentAction {
+  constructor(componentID, component) {
+    super('componentSpawn', componentID);
+    this.component = component;
+  }
+};
+
+module.exports.Movement = class Movement extends ComponentAction {
   constructor(componentID, newX, newY) {
-    super('movement');
-    this.componentID = componentID;
+    super('movement', componentID);
     this.newX = newX;
     this.newY = newY;
   }
 };
 
+module.exports.Resize = class Resize extends ComponentAction {
+  constructor(componentID, newWidth, newHeight) {
+    super('resize', componentID);
+    this.newWidth = newWidth;
+    this.newHeight = newHeight;
+  }
+};
 
-function applyMovement(game, movement) {
-  let component = game.components[movement.componentID];
-  component.posX = movement.newX;
-  component.posY = movement.newY;
-}
+module.exports.ClassResize = class ClassResize extends Action {
+  constructor(classID, newWidth, newHeight) {
+    super('classResize');
+    this.classID = classID;
+    this.newWidth = newWidth;
+    this.newHeight = newHeight;
+  }
+};
+
+module.exports.Flip = class Flip extends ComponentAction {
+  constructor(componentID) {
+    super('flip', componentID);
+  }
+};
