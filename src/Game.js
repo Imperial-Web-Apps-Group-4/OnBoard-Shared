@@ -1,20 +1,10 @@
 'use strict';
 
-const Action = require('./Action');
-
 module.exports = class Game {
   constructor() {
     this.manifest = {};
-    this.components = {};
     this.manifest.componentClasses = {};
-    this.actionFunctions = {
-      'classCreate':    this.applyClassCreate.bind(this),
-      'componentSpawn': this.applyComponentSpawn.bind(this),
-      'movement':       this.applyMovement.bind(this),
-      'resize':         this.applyResize.bind(this),
-      'classResize':    this.applyClassResize.bind(this),
-      'flip':           this.applyFlip.bind(this),
-    };
+    this.components = {};
   }
 
   getCoords(componentID) {
@@ -22,8 +12,12 @@ module.exports = class Game {
     return { x: comp.posX, y: comp.posY };
   }
 
+  getClass(classID) {
+    return this.manifest.componentClasses[classID];
+  }
+
   applyAction(action) {
-    let func = this.actionFunctions[action.type];
+    let func = actionFunctions[action.type].bind(this);
     if (func === undefined) {
       console.error('[Unrecognised action] Attempt to apply unrecognised action');
       return;
@@ -31,44 +25,66 @@ module.exports = class Game {
     func(action);
   }
 
-  /* *** Action application functions *** */
-  applyClassCreate(classCreate) {
-    let id = classCreate.classID || generateUniqueKey(this.manifest.componentClasses);
-    this.manifest.componentClasses[id] = classCreate.newClass;
-  }
-
-  applyComponentSpawn(componentSpawn) {
-    let id = componentSpawn.componentID || generateUniqueKey(this.components);
-    this.components[id] = componentSpawn.component;
-  }
-
-  applyMovement(movement) {
-    let component = this.components[movement.componentID];
-    component.posX = movement.newX;
-    component.posY = movement.newY;
-  }
-
-  applyResize(resize) {
-    let component = this.components[resize.componentID];
-    component.width = resize.newWidth;
-    component.height = resize.newHeight;
-  }
-
-  applyClassResize(classResize) {
-    let compClass = this.manifest.componentClasses[classResize.classID];
-    compClass.defaultWidth = classResize.newWidth;
-    compClass.defaultHeight = classResize.newHeight;
-  }
-
-  applyFlip(flip) {
-    let component = this.components[flip.componentID];
-    if (component.type !== 'flippable') {
-      console.error('[Bad action] Flip action not applied to flippable component');
-      return;
-    }
-    component.faceDown = !component.faceDown;
+  /* If undo etc implemented, actions sent to this function would be treated
+   * as 1 history item */
+  applyActions() {
+    Array.from(arguments).forEach(this.applyAction.bind(this));
   }
 };
+
+let actionFunctions = {
+  'classCreate':     applyClassCreate,
+  'componentSpawn':  applyComponentSpawn,
+  'componentDelete': applyComponentDelete,
+  'movement':        applyMovement,
+  'resize':          applyResize,
+  'classResize':     applyClassResize,
+  'flip':            applyFlip,
+};
+
+/* *** Action application functions *** */
+function applyClassCreate(classCreate) {
+  classCreate.classID = classCreate.classID || generateUniqueKey(this.manifest.componentClasses);
+  this.manifest.componentClasses[classCreate.classID] = classCreate.newClass;
+  return classCreate;
+}
+
+function applyComponentSpawn(componentSpawn) {
+  componentSpawn.componentID = componentSpawn.componentID || generateUniqueKey(this.components);
+  this.components[componentSpawn.componentID] = componentSpawn.component;
+  return componentSpawn;
+}
+
+function applyComponentDelete(componentDelete) {
+  delete this.components[componentDelete.componentID];
+}
+
+function applyMovement(movement) {
+  let component = this.components[movement.componentID];
+  component.posX = movement.newX;
+  component.posY = movement.newY;
+}
+
+function applyResize(resize) {
+  let component = this.components[resize.componentID];
+  component.width = resize.newWidth;
+  component.height = resize.newHeight;
+}
+
+function applyClassResize(classResize) {
+  let compClass = this.manifest.componentClasses[classResize.classID];
+  compClass.defaultWidth = classResize.newWidth;
+  compClass.defaultHeight = classResize.newHeight;
+}
+
+function applyFlip(flip) {
+  let component = this.components[flip.componentID];
+  if (component.type !== 'flippable') {
+    console.error('[Bad action] Flip action not applied to flippable component');
+    return;
+  }
+  component.faceDown = !component.faceDown;
+}
 
 function generateUniqueKey(object) {
   const randomID = () => Math.random().toString(36).slice(2);

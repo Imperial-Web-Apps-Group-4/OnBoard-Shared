@@ -11,7 +11,7 @@ class ComponentClass {
 }
 
 module.exports.GenericClass = class GenericClass extends ComponentClass {
-  constructor(name, imageID,defaultWidth, defaultHeight) {
+  constructor(name, imageID, defaultWidth, defaultHeight) {
     super(name, imageID, defaultWidth, defaultHeight, 'generic');
   }
 };

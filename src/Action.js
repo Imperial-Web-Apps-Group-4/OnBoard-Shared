@@ -28,6 +28,12 @@ module.exports.ComponentSpawn = class ComponentSpawn extends ComponentAction {
   }
 };
 
+module.exports.ComponentDelete = class ComponentDelete extends ComponentAction {
+  constructor(componentID) {
+    super('componentDelete', componentID);
+  }
+};
+
 module.exports.Movement = class Movement extends ComponentAction {
   constructor(componentID, newX, newY) {
     super('movement', componentID);

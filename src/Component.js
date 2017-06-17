@@ -41,7 +41,7 @@ module.exports.StackComponent = class StackComponent extends Component {
 };
 
 module.exports.getComponentImage = function (game, component) {
-  let compClass = game.manifest.componentClasses[component.classID];
+  let compClass = game.getClass[component.classID];
   switch (component.type) {
     case 'generic':
     case 'stack':

@@ -86,3 +86,15 @@ describe('Flip action', function () {
     expect(mockGame.components['testID'].faceDown).toBe(true);
   });
 });
+
+describe('Multiple actions', function () {
+  it('should allow multiple actions to be executed', function () {
+    let mockGame = new Game();
+    let testComp = new Component.FlippableComponent('test', 2, 4, 1, 3, true);
+    mockGame.components['testID'] = testComp;
+
+    let flip = new Action.Flip('testID');
+    mockGame.applyActions(flip, flip);
+    expect(mockGame.components['testID'].faceDown).toBe(true);
+  });
+});
