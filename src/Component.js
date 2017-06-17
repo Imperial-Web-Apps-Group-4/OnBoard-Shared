@@ -14,31 +14,36 @@ class Component {
   }
 }
 
-module.exports.GenericComponent = class GenericComponent extends Component {
+class GenericComponent extends Component {
   constructor(classID, posX, posY, width, height) {
     super(classID, posX, posY, width, height, 'generic');
   }
-};
+}
 
-module.exports.DeckComponent = class DeckComponent extends Component {
+class DeckComponent extends Component {
   constructor(classID, posX, posY, width, height) {
     super(classID, posX, posY, width, height, 'deck');
   }
-};
+}
 
-module.exports.FlippableComponent = class FlippableComponent extends Component {
-  constructor(classID, posX, posY, width, height, faceDown) {
+class FlippableComponent extends Component {
+  constructor(classID, posX, posY, width, height, faceDown = true) {
     super(classID, posX, posY, width, height, 'flippable');
     this.faceDown = faceDown;
   }
-};
+}
 
-module.exports.StackComponent = class StackComponent extends Component {
+class StackComponent extends Component {
   constructor(classID, posX, posY, width, height, initialCount) {
     super(classID, posX, posY, width, height, 'stack');
     this.count = initialCount;
   }
-};
+}
+
+module.exports.GenericComponent   = GenericComponent;
+module.exports.DeckComponent      = DeckComponent;
+module.exports.FlippableComponent = FlippableComponent;
+module.exports.StackComponent     = StackComponent;
 
 module.exports.getComponentImage = function (game, component) {
   let compClass = game.getClass[component.classID];
@@ -53,4 +58,18 @@ module.exports.getComponentImage = function (game, component) {
     default:
       return null;
   }
+};
+
+module.exports.fromClass = function (classID, compClass) {
+  let Component = compDict[compClass.type];
+  let constructorArgs = [null, classID, 0, 0, compClass.defaultWidth, compClass.defaultHeight];
+  if (compClass.type === 'stack') constructorArgs.push(compClass.defaultCount);
+  return new (Component.bind.apply(Component, constructorArgs));
+};
+
+let compDict = {
+  'generic': GenericComponent,
+  'deck': DeckComponent,
+  'flippable': FlippableComponent,
+  'stack': StackComponent
 };
