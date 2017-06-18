@@ -47,15 +47,14 @@ module.exports.StackComponent     = StackComponent;
 
 module.exports.getImageID = function (component, compClass) {
   switch (component.type) {
-    case 'generic':
-    case 'stack':
-      return compClass.imageID;
     case 'deck':
       return component.count !== 0 ? compClass.backImageID : EMPTY_DECK_IMAGE_ID;
     case 'flippable':
       return component.faceDown ? compClass.backImageID : compClass.frontImageID;
+    case 'generic':
+    case 'stack':
     default:
-      return null;
+      return compClass.imageID;
   }
 };
 
