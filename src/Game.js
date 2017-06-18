@@ -22,7 +22,7 @@ module.exports = class Game {
       console.error('[Unrecognised action] Attempt to apply unrecognised action');
       return;
     }
-    func(action);
+    return func(action);
   }
 
   /* If undo etc implemented, actions sent to this function would be treated
