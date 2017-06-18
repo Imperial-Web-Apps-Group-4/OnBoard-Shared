@@ -45,8 +45,7 @@ module.exports.DeckComponent      = DeckComponent;
 module.exports.FlippableComponent = FlippableComponent;
 module.exports.StackComponent     = StackComponent;
 
-module.exports.getComponentImage = function (game, component) {
-  let compClass = game.getClass[component.classID];
+module.exports.getImageID = function (component, compClass) {
   switch (component.type) {
     case 'generic':
     case 'stack':
