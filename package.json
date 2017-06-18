@@ -1,6 +1,6 @@
 {
   "name": "onboard-shared",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Shared code and models for OnBoard.",
   "main": "index.js",
   "scripts": {
