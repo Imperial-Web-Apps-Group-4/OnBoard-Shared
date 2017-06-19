@@ -98,3 +98,15 @@ describe('Multiple actions', function () {
     expect(mockGame.components['testID'].faceDown).toBe(true);
   });
 });
+
+describe('TakeOwnership action', function () {
+  it('should allow users to take ownership of a component', function () {
+    let mockGame = new Game();
+    mockGame.components['testID'] = new Component.GenericComponent('classID', 0, 0);
+
+    let takeOwnership = new Action.TakeOwnership('testID', 'gUsername');
+    mockGame.applyAction(takeOwnership);
+    expect(mockGame.components['testID'].owned).toBe(true);
+    expect(mockGame.components['testID'].owner).toBe('gUsername');
+  });
+});

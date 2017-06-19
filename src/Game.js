@@ -40,6 +40,8 @@ let actionFunctions = {
   'resize':          applyResize,
   'classResize':     applyClassResize,
   'flip':            applyFlip,
+  'takeOwnership':   applyTakeOwnership,
+  'removeOwnership': applyRemoveOwnership
 };
 
 /* *** Action application functions *** */
@@ -84,6 +86,26 @@ function applyFlip(flip) {
     return;
   }
   component.faceDown = !component.faceDown;
+}
+
+function applyTakeOwnership(takeOwnership) {
+  let component = this.components[takeOwnership.componentID];
+  if (component.owned !== false) {
+    console.error('[Bad action] Attempt to take ownership of a component which is already owned');
+    return;
+  }
+  component.owned = true;
+  component.owner = takeOwnership.userIdentification;
+}
+
+function applyRemoveOwnership(removeOwnership) {
+  let component = this.components[removeOwnership.componentID];
+  if (component.owned !== false || component.owner !== removeOwnership.userIdentification) {
+    console.error('[Bad action] Attempt to remove ownership of a component which is not owned by the specified user');
+    return;
+  }
+  component.owned = false;
+  component.owner = null;
 }
 
 function generateUniqueKey(object) {

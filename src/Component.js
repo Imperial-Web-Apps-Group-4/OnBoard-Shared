@@ -11,6 +11,8 @@ class Component {
     this.height = height;
     this.type = type;
     this.locked = false;
+    this.owned = false;
+    this.owner = null;
   }
 }
 

@@ -59,6 +59,20 @@ module.exports.ClassResize = class ClassResize extends Action {
   }
 };
 
+module.exports.TakeOwnership = class TakeOwnership extends ComponentAction {
+  constructor(componentID, userIdentification) {
+    super('takeOwnership', componentID);
+    this.userIdentification = userIdentification;
+  }
+};
+
+module.exports.RemoveOwnership = class RemoveOwnership extends ComponentAction {
+  constructor(componentID, userIdentification) {
+    super('removeOwnership', componentID);
+    this.userIdentification = userIdentification;
+  }
+};
+
 module.exports.Flip = class Flip extends ComponentAction {
   constructor(componentID) {
     super('flip', componentID);
