@@ -13,6 +13,7 @@ class Component {
     this.locked = false;
     this.owned = false;
     this.owner = null;
+    this.aspectRatioLock = true;
   }
 }
 
