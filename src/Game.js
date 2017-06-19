@@ -100,7 +100,7 @@ function applyTakeOwnership(takeOwnership) {
 
 function applyRemoveOwnership(removeOwnership) {
   let component = this.components[removeOwnership.componentID];
-  if (component.owned !== false || component.owner !== removeOwnership.userIdentification) {
+  if (component.owned !== true || component.owner !== removeOwnership.userIdentification) {
     console.error('[Bad action] Attempt to remove ownership of a component which is not owned by the specified user');
     return;
   }
