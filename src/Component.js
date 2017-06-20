@@ -24,8 +24,9 @@ class GenericComponent extends Component {
 }
 
 class DeckComponent extends Component {
-  constructor(classID, posX, posY, width, height) {
+  constructor(classID, posX, posY, width, height, currentCardClasses) {
     super(classID, posX, posY, width, height, 'deck');
+    this.currentCardClasses = currentCardClasses;
   }
 }
 
@@ -65,6 +66,7 @@ module.exports.fromClass = function (classID, compClass) {
   let Component = compDict[compClass.type];
   let constructorArgs = [null, classID, 0, 0, compClass.defaultWidth, compClass.defaultHeight];
   if (compClass.type === 'stack') constructorArgs.push(compClass.defaultCount);
+  else if (compClass.type == 'deck') constructorArgs.push(compClass.cardClassIDs);
   return new (Component.bind.apply(Component, constructorArgs));
 };
 
