@@ -1,6 +1,7 @@
 'use strict';
 
 const EMPTY_DECK_IMAGE_ID = 'empty_deck';
+const DEFAULT_Z_INDEX = 1;
 
 class Component {
   constructor(classID, posX, posY, width, height, type) {
@@ -14,6 +15,7 @@ class Component {
     this.owned = false;
     this.owner = null;
     this.aspectRatioLock = true;
+    this.zIndex = DEFAULT_Z_INDEX;
   }
 }
 
