@@ -17,14 +17,6 @@ module.exports.GenericClass = class GenericClass extends ComponentClass {
   }
 };
 
-module.exports.DeckClass = class DeckClass extends ComponentClass {
-  constructor(name, backImageID, cardClassIDs, defaultWidth, defaultHeight, generated = false) {
-    super(name, defaultWidth, defaultHeight, 'deck', generated);
-    this.backImageID = backImageID;
-    this.cardClassIDs = cardClassIDs;
-  }
-};
-
 module.exports.FlippableClass = class FlippableClass extends ComponentClass {
   constructor(name, backImageID, frontImageID, defaultWidth, defaultHeight, generated = false) {
     super(name, defaultWidth, defaultHeight, 'flippable', generated);
@@ -33,11 +25,32 @@ module.exports.FlippableClass = class FlippableClass extends ComponentClass {
   }
 };
 
-/* A count of 0 in stacks indicates an infinite stack */
+module.exports.DeckClass = class DeckClass extends ComponentClass {
+  constructor(name, backImageID, cardClassIDs, defaultWidth, defaultHeight, generated = false) {
+    super(name, defaultWidth, defaultHeight, 'deck', generated);
+    this.backImageID = backImageID;
+    this.cardClassIDs = cardClassIDs;
+  }
+};
+
+/* A count of -1 in stacks indicates an infinite stack */
 module.exports.StackClass = class StackClass extends ComponentClass {
-  constructor(name, elementCompID, defaultWidth, defaultHeight, defaultCount, generated = false) {
+  constructor(name, contentClassID, defaultWidth, defaultHeight, defaultCount, imageID, generated = false) {
     super(name, defaultWidth, defaultHeight, 'stack', generated);
-    this.elementCompID = elementCompID;
+    this.imageID = imageID;
+    this.contentClassID = contentClassID;
     this.defaultCount = defaultCount;
+  }
+};
+
+module.exports.getImageID = function (compClass) {
+  switch (compClass.type) {
+    case 'flippable':
+    case 'deck':
+      return compClass.backImageID;
+    case 'generic':
+    case 'stack':
+    default:
+      return compClass.imageID;
   }
 };
