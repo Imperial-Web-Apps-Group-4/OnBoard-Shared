@@ -108,6 +108,16 @@ function applyRemoveOwnership(removeOwnership) {
   component.owner = null;
 }
 
+function applyRoll(roll) {
+  let component = this.components[roll.componentID];
+  if (component.type !== 'dice') {
+    console.error('[Bad action] Roll action not applied to dice component');
+    return;
+  }
+  component.shownside = 1; // should be random
+  
+}
+
 function generateUniqueKey(object) {
   const randomID = () => Math.random().toString(36).slice(2);
   let key = randomID();

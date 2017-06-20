@@ -78,3 +78,9 @@ module.exports.Flip = class Flip extends ComponentAction {
     super('flip', componentID);
   }
 };
+
+module.exports.Roll = class Roll extends ComponentAction {
+  constructor(componentID) {
+    super('dice', componentID);
+  }
+};

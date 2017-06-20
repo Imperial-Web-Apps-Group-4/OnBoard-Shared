@@ -39,3 +39,11 @@ module.exports.StackClass = class StackClass extends ComponentClass {
     this.defaultCount = defaultCount;
   }
 };
+
+module.exports.DiceClass = class DiceClass extends ComponentClass {
+  constructor(name, imageID, sides, defaultWidth, defaultHeight) {
+    super(name, imageID, defaultWidth, defaultHeight, 'dice');
+    this.sides = sides;
+    this.sideIDs = {};
+  }
+};

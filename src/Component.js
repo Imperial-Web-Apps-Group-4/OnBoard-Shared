@@ -43,10 +43,19 @@ class StackComponent extends Component {
   }
 }
 
+class DiceComponent extends Component {
+  constructor(classID, posX, posY, width, height, sides) {
+    super(classID, posX, posY, width, height, 'dice');
+    this.shownside = 1;
+    this.sides = sides;
+  }
+}
+
 module.exports.GenericComponent   = GenericComponent;
 module.exports.DeckComponent      = DeckComponent;
 module.exports.FlippableComponent = FlippableComponent;
 module.exports.StackComponent     = StackComponent;
+module.exports.DiceComponent      = DiceComponent;
 
 module.exports.getImageID = function (component, compClass) {
   switch (component.type) {
@@ -54,6 +63,7 @@ module.exports.getImageID = function (component, compClass) {
       return component.count !== 0 ? compClass.backImageID : EMPTY_DECK_IMAGE_ID;
     case 'flippable':
       return component.faceDown ? compClass.backImageID : compClass.frontImageID;
+    case 'dice':
     case 'generic':
     case 'stack':
     default:
@@ -72,5 +82,6 @@ let compDict = {
   'generic': GenericComponent,
   'deck': DeckComponent,
   'flippable': FlippableComponent,
-  'stack': StackComponent
+  'stack': StackComponent,
+  'dice': DiceComponent
 };
