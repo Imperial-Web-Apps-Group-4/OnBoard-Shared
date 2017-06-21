@@ -35,10 +35,9 @@ module.exports.DeckClass = class DeckClass extends ComponentClass {
 
 /* A count of -1 in stacks indicates an infinite stack */
 module.exports.StackClass = class StackClass extends ComponentClass {
-  constructor(name, contentClassID, defaultWidth, defaultHeight, defaultCount, imageID, generated = false) {
+  constructor(name, imageID, defaultWidth, defaultHeight, defaultCount, itemClassID, generated = false) {
     super(name, defaultWidth, defaultHeight, 'stack', generated);
     this.imageID = imageID;
-    this.contentClassID = contentClassID;
     this.defaultCount = defaultCount;
   }
 };
