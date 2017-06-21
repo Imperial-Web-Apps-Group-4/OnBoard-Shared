@@ -58,7 +58,7 @@ module.exports.getImageID = function (component, compClass) {
     case 'flippable':
       return component.faceDown ? compClass.backImageID : compClass.frontImageID;
     case 'stack':
-      return component.count !== 0 ? compClass.backImageID : EMPTY_DECK_IMAGE_ID;
+      return component.count !== 0 ? compClass.imageID : EMPTY_DECK_IMAGE_ID;
     case 'generic':
     default:
       return compClass.imageID;
