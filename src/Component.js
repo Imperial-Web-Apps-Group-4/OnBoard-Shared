@@ -57,8 +57,9 @@ module.exports.getImageID = function (component, compClass) {
       return component.count !== 0 ? compClass.backImageID : EMPTY_DECK_IMAGE_ID;
     case 'flippable':
       return component.faceDown ? compClass.backImageID : compClass.frontImageID;
-    case 'generic':
     case 'stack':
+      return component.count !== 0 ? compClass.backImageID : EMPTY_DECK_IMAGE_ID;
+    case 'generic':
     default:
       return compClass.imageID;
   }
@@ -68,7 +69,7 @@ module.exports.fromClass = function (classID, compClass) {
   let Component = compDict[compClass.type];
   let constructorArgs = [null, classID, 0, 0, compClass.defaultWidth, compClass.defaultHeight];
   if (compClass.type === 'stack') constructorArgs.push(compClass.defaultCount);
-  else if (compClass.type == 'deck') constructorArgs.push(compClass.cardClassIDs);
+  else if (compClass.type == 'deck') constructorArgs.push(compClass.cardClassIDs.slice());
   return new (Component.bind.apply(Component, constructorArgs));
 };
 
